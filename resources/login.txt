@@ -1,0 +1,14 @@
+*** Variables ***
+${DOMAIN}    http://localhost:7272/html
+
+*** Keywords ***
+Goto loging page
+	[Documentation]    document line
+	Open Browser    ${DOMAIN}
+
+Fill in username and password
+	Input Text    username_field    demo
+	Input Text    password_field    mode
+
+Submit login
+	Click Button    login_button

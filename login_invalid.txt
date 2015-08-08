@@ -1,0 +1,64 @@
+# pybot -i group2 login_invalid.txt;
+
+*** Settings ***
+Library    Selenium2Library
+Resource    resources/login.txt
+Suite Setup    Open login page
+Test Setup    Goto loging page
+Test Teardown    Goto loging page
+Suite Teardown    Close Browser
+
+*** Testcases ***
+Username empty, Password empty
+	[Tags]    group1
+	Invalid login    ${EMPTY}    ${EMPTY}
+
+Username correct, Password empty
+	[Tags]    group1
+	Invalid login    demo    ${EMPTY}
+
+Username empty, Password correct
+	[Tags]    group1
+	Invalid login    ${EMPTY}    mode
+
+Username empty, Password incorrect
+	[Tags]    group1
+	Invalid login    ${EMPTY}    abc
+
+Username incorrect, Password empty
+	[Tags]    group1
+	Invalid login    abc    ${EMPTY}
+
+Username correct, Password incorrect
+	[Tags]    group2
+	Invalid login    demo    abc
+
+Username incorrect, Password correct
+	[Tags]    group2
+	Invalid login    abc    mode
+
+Username incorrect, Password incorrect
+	[Tags]    group2
+	Invalid login    abc    abc
+
+*** Keywords ***
+Open login page
+	Open Browser    ${DOMAIN}
+	Maximize Browser Window
+
+Goto loging page
+	Go To    ${DOMAIN}
+
+Invalid login
+	[Arguments]    ${username}    ${password}
+	Input Text    username_field    ${username}
+	Input Text    password_field    ${password}
+	Submit login
+	Error page should be show up
+
+Submit login
+	Click Button    login_button
+
+Error page should be show up
+	Location Should be    ${DOMAIN}/error.html
+	Element Should Contain    container    Login failed
