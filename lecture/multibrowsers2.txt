@@ -1,0 +1,27 @@
+# pybot --variable BROWSER:chrome multibrowsers2.txt
+
+*** Settings ***
+Library    Selenium2Library
+
+*** Variables ***
+${googleUrl}    http://www.google.com
+${browser}    firefox
+
+*** Testcases ***
+Search on all browser
+	open browser go google    ${browser}
+	input keyword iPhone 6
+	wait until fond keyword iPhone 6
+	Close Browser
+
+*** Keywords ***
+open browser go google
+	[Arguments]     ${browser}
+	Open Browser    ${googleUrl}    ${browser}
+
+input keyword iPhone 6
+	Input Text    gbqfq    iphone 6
+
+wait until fond keyword iPhone 6
+	Wait Until Page Contains    สเปค
+	Element Should Contain    id=search    iphone 6

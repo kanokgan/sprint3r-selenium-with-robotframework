@@ -1,0 +1,39 @@
+<html>
+    <head>
+    <title>Original</title>
+    <script type="text/javascript">
+    function modifyAfterDelay() {
+        setTimeout('addElement()', 1000)
+        setTimeout('changeContent()', 1000)
+        setTimeout('changeTitle()', 1000)
+        setTimeout('unhideContent()', 1000)
+    }
+    
+    function addElement() {
+      var div = document.createElement('div')
+      div.setAttribute('id', 'new div')
+      div.innerHTML = 'New Element'
+      document.getElementById("container").appendChild(div)
+    }
+    
+    function changeTitle() {
+        document.title = "Changed"
+        document.bgColor = '#FF00FF'
+    }
+    
+    function changeContent() {
+        document.getElementById("content").firstChild.nodeValue = "New Content"
+    }
+
+    function unhideContent() {
+        document.getElementById("hidden").style.display = "block"
+    }
+    </script>
+    </head>
+    
+    <body onload="modifyAfterDelay()">
+    <div id="content">This is content</div>
+    <div id="container"></div>
+    <div id="hidden" style="display:none;">Inititally hidden content</div>
+    </body>
+</html>

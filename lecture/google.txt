@@ -1,0 +1,25 @@
+# pybot *.txt
+
+*** Settings ***
+Library    Selenium2Library
+
+*** Variables ***
+${googleUrl}    http://www.google.com
+
+*** Testcases ***
+Search
+	open browser go google
+	input keyword iPhone 6
+	wait until fond keyword iPhone 6
+	Close Browser
+
+*** Keywords ***
+open browser go google
+	Open Browser    ${googleUrl}
+
+input keyword iPhone 6
+	Input Text    gbqfq    iphone 6
+
+wait until fond keyword iPhone 6
+	Wait Until Page Contains    สเปค
+	Element Should Contain    id=search    iphone 6

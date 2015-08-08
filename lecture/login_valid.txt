@@ -1,0 +1,27 @@
+# python server.py start
+# sudo pybot -T -d /reports *.txt
+# java -jar jenkins.war
+
+*** Settings ***
+Library    Selenium2Library
+Resource    resources/login.txt
+Test Setup    Goto loging page
+Test Teardown    Close Browser
+
+*** Testcases ***
+Valid Login
+	Fill in username and password
+	Submit login
+	Wellcome page should be open
+
+*** Keywords ***
+Fill in username and password
+	Input Text    username_field    demo
+	Input Text    password_field    mode
+
+Wellcome page should be open
+	Location Should be    ${DOMAIN}/welcome.html
+	Element Should Contain    container    Login succeeded
+
+Check logout link
+	Page Should Contain Link    //*[@id="container"]/p/a    logout

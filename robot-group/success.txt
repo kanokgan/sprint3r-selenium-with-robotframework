@@ -1,0 +1,33 @@
+*** Settings ***
+Library    Selenium2Library
+Test Setup       Open login page
+Test Teardown    Close Browser
+
+*** Variables ***
+${LOGIN PAGE}    http://localhost:7272/html
+${PASS}    mode
+${FAIL}    abc
+${DEMO}    demo
+
+**** Testcases ****
+Login Success
+	Fill login credentials
+	Click login
+	Welcome page is shown
+
+*** Keywords ***
+
+Fill login credentials
+	Input Text    name=username_field    demo
+	Input Password    name=password_field   mode 
+
+Welcome page is shown
+	Location Should Be    ${LOGIN PAGE}/welcome.html
+	Title Should Be    Welcome Page
+	Element Should Contain    tag=h1    Welcome Page
+	Page Should Contain Link    //div[@id="container"]/p/a    Logout
+
+Open login page
+	Open Browser    ${LOGIN PAGE}
+Click login
+	Submit Form
